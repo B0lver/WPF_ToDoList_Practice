@@ -18,13 +18,20 @@
         </Grid.ColumnDefinitions>
         <!--#region Колонка 1-->
         <GroupBox Grid.Column="0" Header="Список дел">
-            <ListBox ItemsSource="{Binding ToDoList}" SelectedItem="{Binding SelectedToDoItem}">
+            <DockPanel>
+                <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+                    <Button Command="{Binding AddNewToDoItemCommand}">
+                        <TextBlock Text="Добавить"/>
+                    </Button>
+                </UniformGrid>
+                <ListBox ItemsSource="{Binding ToDoList}" SelectedItem="{Binding SelectedToDoItem}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            </DockPanel>
         </GroupBox>
         <!--#endregion-->
         <!--#region Колонка 2-->

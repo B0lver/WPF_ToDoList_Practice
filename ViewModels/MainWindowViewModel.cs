@@ -12,6 +12,7 @@ namespace WPF_ToDoList.ViewModels
 {
     internal class MainWindowViewModel  :Base.BaseViewModel
     {
+        private int _newItems_TestIndex = 0;
 
         #region Поля
 
@@ -44,6 +45,25 @@ namespace WPF_ToDoList.ViewModels
         #endregion
 
         #region Команды
+      
+        #region AddNewToDoItemCommand - Добавление нового элемента к списку дел
+
+        private void OnAddNewToDoItemCommandExecuted(object p) 
+        {
+            ToDoList.Add(new ToDoItem()
+            {
+                Name = $"Новое дело {_newItems_TestIndex}",
+                Description = $"Описание нового дела {_newItems_TestIndex++}"
+            });
+            SelectedToDoItem = ToDoList.Last();
+        }
+
+        private bool CanAddNewToDoItemCommandExecute(object p) => true;
+
+        ///<summary> Добавление нового элемента к списку дел </summary>
+        public ICommand AddNewToDoItemCommand { get; }
+
+        #endregion
 
         #region DeleteToDoListElementCommand - Удаление элемента из списка дел
 
@@ -83,12 +103,14 @@ namespace WPF_ToDoList.ViewModels
             
             Title = "Новый заголовок окна";
             InitToDoList();
+
             #region Команды
 
             DeleteToDoListElementCommand = new LambdaCommand(OnDeleteToDoListElementCommandExecuted, CanDeleteToDoListElementCommandExecute);
+            AddNewToDoItemCommand = new LambdaCommand(OnAddNewToDoItemCommandExecuted, CanAddNewToDoItemCommandExecute);
 
             #endregion
-            //SelectedToDoItem = ToDoList[0];
+
         }
 
         private void InitToDoList()
