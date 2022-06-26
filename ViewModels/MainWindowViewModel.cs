@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using WPF_ToDoList.Commands;
 using WPF_ToDoList.Models;
 
 namespace WPF_ToDoList.ViewModels
@@ -41,12 +43,52 @@ namespace WPF_ToDoList.ViewModels
 
         #endregion
 
+        #region Команды
+
+        #region DeleteToDoListElementCommand - Удаление элемента из списка дел
+
+        private void OnDeleteToDoListElementCommandExecuted(object p) 
+        {
+            if (!(p is ToDoItem item))
+            {
+                return;
+            }
+            int index = ToDoList.IndexOf(item);
+            ToDoList.Remove(item);
+            int count = ToDoList.Count;
+            if (index == count && count > 0)
+            {
+                SelectedToDoItem = ToDoList[index - 1];
+            }
+            else
+            {
+                if (index < ToDoList.Count)
+                {
+                    SelectedToDoItem = ToDoList[index];
+                }
+            }
+        }
+
+        private bool CanDeleteToDoListElementCommandExecute(object p) => (p is ToDoItem item);
+
+        ///<summary> Удаление элемента из списка дел </summary>
+        public ICommand DeleteToDoListElementCommand { get; }
+
+        #endregion
+
+        #endregion
 
         public MainWindowViewModel()
         {
+            
             Title = "Новый заголовок окна";
             InitToDoList();
-            SelectedToDoItem = ToDoList[0];
+            #region Команды
+
+            DeleteToDoListElementCommand = new LambdaCommand(OnDeleteToDoListElementCommandExecuted, CanDeleteToDoListElementCommandExecute);
+
+            #endregion
+            //SelectedToDoItem = ToDoList[0];
         }
 
         private void InitToDoList()
