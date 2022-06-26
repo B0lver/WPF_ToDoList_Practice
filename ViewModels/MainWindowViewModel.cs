@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using WPF_ToDoList.Commands;
 using WPF_ToDoList.Models;
@@ -14,7 +10,7 @@ namespace WPF_ToDoList.ViewModels
     {
         private int _newItems_TestIndex = 0;
 
-        #region Поля
+        #region Свойства
 
         #region SelectedToDoItem - Выбранное дело
 
@@ -55,6 +51,19 @@ namespace WPF_ToDoList.ViewModels
         {
             get => _IsSelectedElementChanging;
             set => Set<bool>(ref _IsSelectedElementChanging, value);
+        }
+
+        #endregion
+
+        #region CurrentWeek - Текущая неделя
+
+        private Week _CurrentWeek;
+
+        ///<summary> Текущая неделя </summary>
+        public Week CurrentWeek
+        {
+            get => _CurrentWeek;
+            set => Set<Week>(ref _CurrentWeek, value);
         }
 
         #endregion
@@ -135,10 +144,10 @@ namespace WPF_ToDoList.ViewModels
 
         public MainWindowViewModel()
         {
-            
+
             Title = "Новый заголовок окна";
             InitToDoList();
-
+            CurrentWeek = new Week();
             #region Команды
 
             DeleteToDoListElementCommand = new LambdaCommand(OnDeleteToDoListElementCommandExecuted, CanDeleteToDoListElementCommandExecute);
