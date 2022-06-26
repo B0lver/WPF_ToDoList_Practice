@@ -80,7 +80,7 @@
         <TabItem Header="Календарь">
             <TabItem.Resources>
                 <DataTemplate x:Key="DayListDataTemplate">
-                    <TextBlock Text="SampleText" />
+                    <TextBlock Text="{Binding Name}" />
                     <!--<GroupBox Header="{Binding DayName}">
                         <ListBox>
 
@@ -88,7 +88,7 @@
                     </GroupBox>-->
                 </DataTemplate>
             </TabItem.Resources>
-            <ListBox ItemsSource="{Binding ToDoList}" ItemTemplate="{StaticResource DayListDataTemplate}">
+            <ListBox ItemsSource="{Binding CurrentWeek.Days}" ItemTemplate="{StaticResource DayListDataTemplate}">
             </ListBox>
         </TabItem>
     </TabControl>
