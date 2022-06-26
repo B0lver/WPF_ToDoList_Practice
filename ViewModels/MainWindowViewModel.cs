@@ -24,7 +24,11 @@ namespace WPF_ToDoList.ViewModels
         public ToDoItem SelectedToDoItem
         {
             get => _SelectedToDoItem;
-            set => Set<ToDoItem>(ref _SelectedToDoItem, value);
+            set
+            {
+                IsSelectedElementEditing = false;
+                Set<ToDoItem>(ref _SelectedToDoItem, value);
+            }
         }
 
         #endregion
@@ -55,14 +59,13 @@ namespace WPF_ToDoList.ViewModels
 
         #endregion
 
-
         #endregion
 
         #region Команды
 
         #region AddNewToDoItemCommand - Добавление нового элемента к списку дел
 
-        private void OnAddNewToDoItemCommandExecuted(object p) 
+        private void OnAddNewToDoItemCommandExecuted(object p)
         {
             ToDoList.Add(new ToDoItem()
             {
@@ -110,7 +113,6 @@ namespace WPF_ToDoList.ViewModels
 
         #endregion
 
-
         #region StartEditingElementCommand - Начало редактирования элемента
 
         private void OnStartEditingElementCommandExecuted(object p) 
@@ -128,7 +130,6 @@ namespace WPF_ToDoList.ViewModels
         public ICommand StartEditingElementCommand { get; }
 
         #endregion
-
 
         #endregion
 
