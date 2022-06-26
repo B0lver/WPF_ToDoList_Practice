@@ -38,9 +38,6 @@
                 <StackPanel>
                     <TextBlock Text="{Binding SelectedToDoItem.Name}"/>
                     <TextBlock Text="{Binding SelectedToDoItem.Description}"/>
-                    <TextBlock Text="{Binding SelectedToDoItem.Description}"/>
-                    <TextBlock Text="{Binding SelectedToDoItem.Description}"/>
-                    <TextBlock Text="{Binding SelectedToDoItem.Description}"/>
                 </StackPanel>
             </DockPanel>
         </GroupBox>
