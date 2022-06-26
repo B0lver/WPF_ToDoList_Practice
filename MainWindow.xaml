@@ -11,6 +11,9 @@
     <Window.DataContext>
         <vm:MainWindowViewModel></vm:MainWindowViewModel>
     </Window.DataContext>
+    <Window.Resources>
+        <local:InverseBooleanConverter x:Key="InverseConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -38,6 +41,9 @@
         <GroupBox Grid.Column="1" Header="Выбранное дело">
             <DockPanel>
                 <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+                    <Button Command="{Binding StartEditingElementCommand}" CommandParameter="{Binding SelectedToDoItem}">
+                        <TextBlock Text="Изменить"/>
+                    </Button>
                     <Button Command="{Binding DeleteToDoListElementCommand}" CommandParameter="{Binding SelectedToDoItem}">
                         <TextBlock Text="Удалить"/>
                     </Button>
@@ -60,10 +66,10 @@
                         <TextBlock Text="Описание :" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" >
-                        <TextBox Text="{Binding SelectedToDoItem.Name}"/>
-                        <TextBox Text="{Binding SelectedToDoItem.Description}"/>
+                        <TextBox Text="{Binding SelectedToDoItem.Name}" IsReadOnly="{Binding IsSelectedElementEditing, Converter={StaticResource InverseConverter}}"/>
+                        <TextBox Text="{Binding SelectedToDoItem.Description}" IsReadOnly="{Binding IsSelectedElementEditing, Converter={StaticResource InverseConverter}}"/>
                     </StackPanel>
-                    
+
                 </Grid>
             </DockPanel>
         </GroupBox>

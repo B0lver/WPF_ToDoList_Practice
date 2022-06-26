@@ -42,10 +42,24 @@ namespace WPF_ToDoList.ViewModels
 
         #endregion
 
+        #region IsSelectedElementChanging - Состояние изменения выбранного элемента
+
+        private bool _IsSelectedElementChanging = false;
+
+        ///<summary> Состояние изменения выбранного элемента </summary>
+        public bool IsSelectedElementEditing
+        {
+            get => _IsSelectedElementChanging;
+            set => Set<bool>(ref _IsSelectedElementChanging, value);
+        }
+
+        #endregion
+
+
         #endregion
 
         #region Команды
-      
+
         #region AddNewToDoItemCommand - Добавление нового элемента к списку дел
 
         private void OnAddNewToDoItemCommandExecuted(object p) 
@@ -96,6 +110,26 @@ namespace WPF_ToDoList.ViewModels
 
         #endregion
 
+
+        #region StartEditingElementCommand - Начало редактирования элемента
+
+        private void OnStartEditingElementCommandExecuted(object p) 
+        {
+            if (!(p is ToDoItem item))
+            {
+                return;
+            }
+            IsSelectedElementEditing = true;
+        }
+
+        private bool CanStartEditingElementCommandExecute(object p) => (p is ToDoItem item) && ToDoList.Contains(item);
+
+        ///<summary> Начало редактирования элемента </summary>
+        public ICommand StartEditingElementCommand { get; }
+
+        #endregion
+
+
         #endregion
 
         public MainWindowViewModel()
@@ -108,6 +142,7 @@ namespace WPF_ToDoList.ViewModels
 
             DeleteToDoListElementCommand = new LambdaCommand(OnDeleteToDoListElementCommandExecuted, CanDeleteToDoListElementCommandExecute);
             AddNewToDoItemCommand = new LambdaCommand(OnAddNewToDoItemCommandExecuted, CanAddNewToDoItemCommandExecute);
+            StartEditingElementCommand = new LambdaCommand(OnStartEditingElementCommandExecuted, CanStartEditingElementCommandExecute);
 
             #endregion
 
