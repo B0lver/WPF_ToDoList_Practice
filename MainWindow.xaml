@@ -14,64 +14,82 @@
     <Window.Resources>
         <local:InverseBooleanConverter x:Key="InverseConverter"/>
     </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-        <!--#region Колонка 1-->
-        <GroupBox Grid.Column="0" Header="Список дел">
-            <DockPanel>
-                <UniformGrid DockPanel.Dock="Bottom" Rows="1">
-                    <Button Command="{Binding AddNewToDoItemCommand}">
-                        <TextBlock Text="Добавить"/>
-                    </Button>
-                </UniformGrid>
-                <ListBox ItemsSource="{Binding ToDoList}" SelectedItem="{Binding SelectedToDoItem}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+    <TabControl>
+        <TabItem Header="Список дел" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <!--#region Колонка 1-->
+                <GroupBox Grid.Column="0" Header="Список дел">
+                    <DockPanel>
+                        <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+                            <Button Command="{Binding AddNewToDoItemCommand}">
+                                <TextBlock Text="Добавить"/>
+                            </Button>
+                        </UniformGrid>
+                        <ListBox ItemsSource="{Binding ToDoList}" SelectedItem="{Binding SelectedToDoItem}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </GroupBox>
+                <!--#endregion-->
+                <!--#region Колонка 2-->
+                <GroupBox Grid.Column="1" Header="Выбранное дело">
+                    <DockPanel>
+                        <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+                            <Button Command="{Binding StartEditingElementCommand}" CommandParameter="{Binding SelectedToDoItem}">
+                                <TextBlock Text="Изменить"/>
+                            </Button>
+                            <Button Command="{Binding DeleteToDoListElementCommand}" CommandParameter="{Binding SelectedToDoItem}">
+                                <TextBlock Text="Удалить"/>
+                            </Button>
+                        </UniformGrid>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="0,5"/>
+                                </Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Margin" Value="0,5"/>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Название :"/>
+                                <TextBlock Text="Описание :"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBox Text="{Binding SelectedToDoItem.Name}" IsReadOnly="{Binding IsSelectedElementEditing, Converter={StaticResource InverseConverter}}"/>
+                                <TextBox Text="{Binding SelectedToDoItem.Description}" IsReadOnly="{Binding IsSelectedElementEditing, Converter={StaticResource InverseConverter}}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DockPanel>
+                </GroupBox>
+                <!--#endregion-->
+            </Grid>
+        </TabItem>
+        <TabItem Header="Календарь">
+            <TabItem.Resources>
+                <DataTemplate x:Key="DayListDataTemplate">
+                    <TextBlock Text="SampleText" />
+                    <!--<GroupBox Header="{Binding DayName}">
+                        <ListBox>
+
+                        </ListBox>
+                    </GroupBox>-->
+                </DataTemplate>
+            </TabItem.Resources>
+            <ListBox ItemsSource="{Binding ToDoList}" ItemTemplate="{StaticResource DayListDataTemplate}">
             </ListBox>
-            </DockPanel>
-        </GroupBox>
-        <!--#endregion-->
-        <!--#region Колонка 2-->
-        <GroupBox Grid.Column="1" Header="Выбранное дело">
-            <DockPanel>
-                <UniformGrid DockPanel.Dock="Bottom" Rows="1">
-                    <Button Command="{Binding StartEditingElementCommand}" CommandParameter="{Binding SelectedToDoItem}">
-                        <TextBlock Text="Изменить"/>
-                    </Button>
-                    <Button Command="{Binding DeleteToDoListElementCommand}" CommandParameter="{Binding SelectedToDoItem}">
-                        <TextBlock Text="Удалить"/>
-                    </Button>
-                </UniformGrid>
-                <Grid>
-                    <Grid.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="0,5"/>
-                        </Style>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Margin" Value="0,5"/>
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Text="Название :"/>
-                        <TextBlock Text="Описание :"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <TextBox Text="{Binding SelectedToDoItem.Name}" IsReadOnly="{Binding IsSelectedElementEditing, Converter={StaticResource InverseConverter}}"/>
-                        <TextBox Text="{Binding SelectedToDoItem.Description}" IsReadOnly="{Binding IsSelectedElementEditing, Converter={StaticResource InverseConverter}}"/>
-                    </StackPanel>
-                </Grid>
-            </DockPanel>
-        </GroupBox>
-        <!--#endregion-->
-    </Grid>
+        </TabItem>
+    </TabControl>
 </Window>
