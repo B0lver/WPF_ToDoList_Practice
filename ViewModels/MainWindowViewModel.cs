@@ -79,7 +79,7 @@ namespace WPF_ToDoList.ViewModels
             ToDoList.Add(new ToDoItem()
             {
                 Name = $"Новое дело {_newItems_TestIndex}",
-                Description = $"Описание нового дела {_newItems_TestIndex++}"
+                Text = $"Описание нового дела {_newItems_TestIndex++}"
             });
             SelectedToDoItem = ToDoList.Last();
         }
@@ -144,7 +144,6 @@ namespace WPF_ToDoList.ViewModels
 
         public MainWindowViewModel()
         {
-
             Title = "Новый заголовок окна";
             InitToDoList();
             CurrentWeek = new Week();
@@ -155,7 +154,6 @@ namespace WPF_ToDoList.ViewModels
             StartEditingElementCommand = new LambdaCommand(OnStartEditingElementCommandExecuted, CanStartEditingElementCommandExecute);
 
             #endregion
-
         }
 
         private void InitToDoList()
@@ -166,7 +164,7 @@ namespace WPF_ToDoList.ViewModels
                 ToDoList.Add(new ToDoItem()
                 {
                     Name = $"Дело {i}",
-                    Description = $"Описание {i}"
+                    Text = $"Описание {i}"
                 });
             }
         }

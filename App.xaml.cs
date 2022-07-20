@@ -13,5 +13,6 @@ namespace WPF_ToDoList
     /// </summary>
     public partial class App : Application
     {
+
     }
 }
