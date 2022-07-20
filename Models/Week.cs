@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WPF_ToDoList.Models
 {
@@ -11,12 +7,13 @@ namespace WPF_ToDoList.Models
     {
         public ObservableCollection<Day> Days { get; set; }
 
-        public Week()
+        public Week(int offset = 1)
         {
             Days = new ObservableCollection<Day>();
             for (int i = 0; i < 7; i++)
             {
-                Days.Add(new Day((DayOfWeek)i));
+                int dayNumber = (i + offset)%7;
+                Days.Add(new Day((DayOfWeek)dayNumber));
             }
         }
     }
