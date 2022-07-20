@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using WPF_ToDoList.Services;
 
 namespace WPF_ToDoList.Models
 {
@@ -13,7 +14,8 @@ namespace WPF_ToDoList.Models
         public Day(DayOfWeek dayOfWeek)
         {
             this.DayOfWeek = dayOfWeek;
-            Name = DateTimeFormatInfo.CurrentInfo.GetDayName(DayOfWeek);
+            var dayName = DateTimeFormatInfo.CurrentInfo.GetDayName(DayOfWeek);
+            Name = StringExtentions.FirstLetterToUpper(dayName);
         }
 
     }
