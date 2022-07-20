@@ -14,7 +14,7 @@ namespace WPF_ToDoList.Services
             {
                 null => throw new ArgumentNullException(nameof(input)),
                 "" => throw new ArgumentException($"String cannot be empty: {nameof(input)}"),
-                _ => String.Concat(input[0].ToString().ToUpper(), input.AsSpan(2))
+                _ => String.Concat(input[0].ToString().ToUpper(), input.AsSpan(1))
             };
         }
     }

@@ -6,7 +6,7 @@ using WPF_ToDoList.Models;
 
 namespace WPF_ToDoList.ViewModels
 {
-    internal class MainWindowViewModel  :Base.BaseViewModel
+    internal class MainWindowViewModel : Base.BaseViewModel
     {
         private int _newItems_TestIndex = 0;
 
@@ -93,7 +93,7 @@ namespace WPF_ToDoList.ViewModels
 
         #region DeleteToDoListElementCommand - Удаление элемента из списка дел
 
-        private void OnDeleteToDoListElementCommandExecuted(object p) 
+        private void OnDeleteToDoListElementCommandExecuted(object p)
         {
             if (!(p is ToDoItem item))
             {
@@ -124,7 +124,7 @@ namespace WPF_ToDoList.ViewModels
 
         #region StartEditingElementCommand - Начало редактирования элемента
 
-        private void OnStartEditingElementCommandExecuted(object p) 
+        private void OnStartEditingElementCommandExecuted(object p)
         {
             if (!(p is ToDoItem item))
             {
@@ -163,7 +163,7 @@ namespace WPF_ToDoList.ViewModels
             ToDoList = new ObservableCollection<ToDoItem>();
             for (int i = 0; i < 10; i++)
             {
-                ToDoList.Add(new ToDoItem() 
+                ToDoList.Add(new ToDoItem()
                 {
                     Name = $"Дело {i}",
                     Description = $"Описание {i}"
